@@ -1,0 +1,19 @@
+<% provide(:title, "Products") %>
+
+<h3 class="text-left">Products for Sale</h3>
+<table>
+	<% @products.each do |product| %>
+	<tr>
+		<td><%= link_to image_tag(product.image_url), product %></td>
+		<td>
+		<div class="name"><%= link_to product.name, product %></div>
+		<div class="description"><%= product.description %></div>
+		<div class= "price">Price: <%= number_to_currency product.price, unit: 'PLN', format: '%n %u' %></div>
+		<div class="quantity">In stock: <%= product.stock  %></div>
+		</div>
+		</td>
+	</tr>
+	<% end %>
+</table>
+<br />
+

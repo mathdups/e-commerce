@@ -1,0 +1,34 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h4><%= gravatar_for @user %></h4>
+      <h4><%= @user.name %></h4>
+      <h4><%= @user.email %></h4>
+      <%= link_to 'Edit profile', edit_user_path(@user) %>
+      <%= link_to 'Delete', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </section>
+  </aside>
+  <aside class="col-md-4">
+    <section class="user_orders">
+      <% counter = 1 %>
+      <% @orders.each do |order| %>
+      <h4><b>Order nr. <%= counter %></b></h4>
+      <% counter += 1 %>
+      <h4><b>Order placed: <%= order.created_at.to_date %></b></h4>
+      <% order.cart.cart_items.each do |cart_item| %>
+      <label for="product">Product name: </label><h4><%= cart_item.product.name %></h4>
+      <label for="decription">Product decription: </label><h4><%= cart_item.product.description %></h4>
+      <label for="quantity">Quantity: </label><h4><%= cart_item.quantity %></h4>
+      <label for="price">Price: </label><h4><%= number_to_currency cart_item.product.price, unit: 'PLN', format: '%n %u' %></h4>
+      <% end %>
+      <hr/>
+	  <div><b>
+  		Total Price: <span style="color: green"><%= number_to_currency order.cart.total_price, unit: 'PLN', format: '%n %u' %></b></span>
+	  </div>
+	  <% end %>
+      <%= link_to 'Edit profile', edit_user_path(@user) %>
+      <%= link_to 'Delete', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </section>
+  </aside>
+</div>

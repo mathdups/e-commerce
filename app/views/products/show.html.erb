@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-4 col-md-offset-3">
+    <p>
+      <strong>Name:</strong>
+      <%= @product.name %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= @product.description %>
+    </p>
+
+    <p>
+      <strong>Price:</strong>
+      <%= number_to_currency @product.price, unit: 'PLN', format: '%n %u' %>
+    </p>
+
+    <p>
+      <strong>In stock:</strong>
+      <%= @product.stock %>
+    </p>
+
+    <p>
+      <%= image_tag @product.image_url %>
+    </p>
+
+    <%= link_to 'Back', root_path %> |
+    <% if @product.stock.zero? %>
+    		Out of stock
+    <% else %>
+      <%= form_for @product, :url => cart_items_path, :html => { :method => :post } do |f|%>
+      <%= f.hidden_field :product_id, value: @product.id %>
+    	<%= f.number_field :quantity, value: 1, class: "number-tag", min: 1 %>
+      <%= f.submit 'Add to Cart', class: "btn btn-success" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

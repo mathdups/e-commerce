@@ -1,0 +1,28 @@
+<% provide(:title, "Orders") %>
+<h3 class="text-left">Orders</h3>
+<div class="row">
+  <div class="row">
+	<table>
+	<% counter = 1 %>
+	<% @orders.each do |order| %>
+	<td><b>Order nr. <%= counter %></b></td>
+	<% counter += 1 %>
+	<td><b>Order placed: <%= order.created_at.to_date %></b></td>
+		<% order.cart.cart_items.each do |cart_item| %>
+	<tr>
+		<td><%= link_to image_tag(cart_item.product.image_url), cart_item.product %></td>
+		<td>
+		<div class="name"><%= link_to cart_item.product.name, cart_item.product %></div>
+		<div class="description"><%= cart_item.product.description %></div>
+		<div class= "price">Price: <%= number_to_currency cart_item.product.price, unit: 'PLN', format: '%n %u' %></div>
+		<% end %>
+		<div><b>
+  			Total Price: <span style="color: green"><%= number_to_currency order.cart.total_price, unit: 'PLN', format: '%n %u' %></b></span>
+		</div>
+		<hr/>
+		</td>
+	</tr>
+	<% end %>
+</table>
+  </div>
+ </div>

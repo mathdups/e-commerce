@@ -1,0 +1,36 @@
+<% provide(:title, "Cart") %>
+<h1>Your Cart</h1>
+
+<table class="row">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Product</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+
+<tbody>
+    <% current_cart.cart_items.each do |item| %>
+      <tr class="col-md-16">
+        <td><%= link_to image_tag(item.product.image_url, class: "image"), product_path(item.product.id)  %></td>
+        <td><%= link_to item.product.name, product_path(item.product.id) %></td>
+        <td><%= item.product.description %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency item.product.price, unit: 'PLN', format: '%n %u' %></td>
+        <td><%= number_to_currency item.total_price, unit: 'PLN', format: '%n %u' %></td>
+        <td><%= link_to 'Remove', cart_item_url(item), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-info" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<hr>
+<div class="total-price"><b>
+  Total Price: </b><span style="color: green"><%= number_to_currency @cart.total_price, unit: 'PLN', format: '%n %u' %></span>
+</div>
+<div class="total-price">
+  <%= link_to 'Next', new_order_path, class: "btn btn-success" %>
+</div>

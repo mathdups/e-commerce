@@ -1,0 +1,31 @@
+<% provide(:title, "Admin") %>
+<nav>
+	<ul class="nav navbar-nav navbar-right">
+    	<li class="list-item"><%= link_to 'New product', new_admin_product_path, class: "" %></li>
+        <li class="list-item"><%= link_to 'Products', admin_products_path, class: "" %></li>
+        <li class="list-item"><%= link_to 'Orders', admin_orders_path, class: "" %></li>
+    </ul>
+</nav>
+<div class="admin-panel-title">
+ 	<h3>Admin Panel</h3></li>
+ </div>
+<div class="container">
+	<div class="row products-row">
+  			
+		<table>
+			<% @products.each do |product| %>
+			<tr>
+				<td><%= link_to image_tag(product.image_url), [:admin, product] %></td>
+				<td>
+				<div class="name"><%= link_to product.name, [:admin, product] %></div>
+				<div class="description"><%= product.description %></div>
+				<div class= "price">Price: <%= number_to_currency product.price, unit: 'PLN', format: '%n %u' %></div>
+				<div class="quantity">In stock: <%= product.stock  %></div>
+				<%= link_to 'Edit', [:edit, :admin, product] %> |
+				<%= link_to 'Delete', [:admin, product], method: :delete, data: { confirm: 'Are you sure?' } %>
+				</td>
+			</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
