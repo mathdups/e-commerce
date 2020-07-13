@@ -10,10 +10,19 @@
 		<div class="description"><%= product.description %></div>
 		<div class= "price">Price: <%= number_to_currency product.price, unit: 'PLN', format: '%n %u' %></div>
 		<div class="quantity">In stock: <%= product.stock  %></div>
+    <%= link_to 'Back', root_path %> |
+
+      <%= form_for product, :url => cart_items_path, :html => { :method => :post } do |f|%>
+      <%= f.hidden_field :product_id, value: product.id %>
+      <%= f.number_field :quantity, value: 1, class: "number-tag", min: 1 %>
+      <%= f.submit 'Add to Cart', class: "btn btn-success" %>
+
+    <% end %>
 		</div>
 		</td>
 	</tr>
 	<% end %>
 </table>
 <br />
+
 
