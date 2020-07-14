@@ -8,9 +8,9 @@ before_action :logged_in_user
       redirect_to root_path
       return
     end
- 
+
     @order = Order.new
- 
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @order }
@@ -19,7 +19,7 @@ before_action :logged_in_user
 
   def create
     @order = Order.new(order_params)
-  
+
     if @order.save
       session[:cart_id] = nil
       flash[:success] = "Thank you for your order!"
@@ -30,6 +30,7 @@ before_action :logged_in_user
     end
 
   end
+
 
   private
 
